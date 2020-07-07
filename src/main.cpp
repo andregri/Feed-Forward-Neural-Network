@@ -12,7 +12,7 @@ int main(int argc, char**argv)
     vector<int> topology;
     topology.push_back(3);
     topology.push_back(2);
-    topology.push_back(1);
+    topology.push_back(3);
 
     vector<double> input;
     input.push_back(1.0);
@@ -21,9 +21,16 @@ int main(int argc, char**argv)
 
     NeuralNetwork nn(topology);
     nn.setCurrentInput(input);
-    nn.feedForward();
+    nn.setCurrentTarget(input);
 
-    nn.printToConsole();
+    // Training
+    for(int i = 0; i < 20; i++) {
+        cout << "Epoch: " << i << endl;
+        nn.feedForward();
+        nn.setErrors();
+        nn.backPropagation();
+        cout << "Total error: " << nn.getTotalError() << endl;
+    }
 
     return 0;
 }

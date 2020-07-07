@@ -15,6 +15,7 @@ public:
     Layer(int size);
 
     void setVal(int i, double v);
+    int getSize() { return size; };
 
     Matrix matrixifyVals();
     Matrix matrixifyActivatedVals();
