@@ -30,7 +30,14 @@ int main(int argc, char**argv)
         nn.setErrors();
         nn.backPropagation();
         cout << "Total error: " << nn.getTotalError() << endl;
+        cout << "==== TARGET ====" << endl;
+        nn.printTargetToConsole();
+        cout << "\n==== OUTPUT ====" << endl;
+        nn.printOutputToConsole();
+        cout << "\n";
     }
+
+    nn.printHistoricalErrors();
 
     return 0;
 }

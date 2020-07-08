@@ -194,9 +194,10 @@ void NeuralNetwork::setErrors()
     for(int i = 0; i < target.size(); i++) {
         double err = outputVals.getVal(0, i) - target.at(i);
         errors.at(i) = err;
-        totalError += err;
+        totalError += pow(err, 2);  // quadratic cost function
     }
 
+    totalError /= 2;
     historicalErrors.push_back(totalError);
 }
 
@@ -219,4 +220,39 @@ void NeuralNetwork::printToConsole()
         }
         cout << "========================" << endl;
     }
+}
+
+void NeuralNetwork::printInputToConsole()
+{
+    for(int i = 0; i < input.size(); i++) {
+        cout << input.at(i) << "\t\t";
+    }
+}
+
+void NeuralNetwork::printTargetToConsole()
+{
+    for(int i = 0; i < target.size(); i++) {
+        cout << target.at(i) << "\t\t";
+    }
+}
+
+void NeuralNetwork::printOutputToConsole()
+{
+    int outputLayerIndex = layers.size() - 1;
+    Matrix outputValues = layers.at(outputLayerIndex).matrixifyActivatedVals();
+    for(int i = 0; i < outputValues.getNumCols(); i++) {
+        cout << outputValues.getVal(0, i) << "\t\t";
+    }
+}
+
+void NeuralNetwork::printHistoricalErrors()
+{
+    for(int i = 0; i < historicalErrors.size(); i++) {
+        cout << historicalErrors.at(i);
+        if(i != historicalErrors.size() - 1) {
+            cout << ", ";
+        }
+    }
+
+    cout << endl;
 }

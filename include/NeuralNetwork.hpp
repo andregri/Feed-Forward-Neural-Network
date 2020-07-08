@@ -27,6 +27,10 @@ public:
     void setErrors();
     
     void printToConsole();
+    void printInputToConsole();
+    void printOutputToConsole();
+    void printTargetToConsole();
+    void printHistoricalErrors();
 
 private:
     int topologySize; 
