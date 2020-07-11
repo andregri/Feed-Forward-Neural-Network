@@ -26,12 +26,19 @@ public:
 
     NeuralNetwork(
         vector<int> topology,
-        int hiddenActivateType,
+        int hiddenActivationType,
         int outputActivationType,
         int costFunctionType,
         double bias = 1,
         double learningRate = 0.05,
         double momentum = 1);
+
+    void train(
+        vector<double> input,
+        vector<double> target,
+        double bias,
+        double learningRate,
+        double momentum);
 
     void setCurrentInput(vector<double> input);
     void setCurrentTarget(vector<double> target) { this->target = target; };
@@ -39,6 +46,7 @@ public:
     void feedForward();
     void backPropagation();
     void setErrors();
+    void setErrorMSE();
 
     vector<double> getActivatedVals(int index) { return this->layers.at(index)->getActivatedVals(); };
 
@@ -48,7 +56,10 @@ public:
     Matrix *getWeightMatrix(int index) { return new Matrix(*this->weightMatrices.at(index)); };
 
     void setNeuronValue(int indexLayer, int indexNeuron, double v) { layers.at(indexLayer)->setVal(indexNeuron, v); };
-        
+
+    double getError() { return error; };
+
+private:      
     int topologySize;
     int hiddenActivationType = RELU;
     int outputActivationType = SIGM;

@@ -24,7 +24,7 @@ Matrix *Matrix::copy() {
     return m;
 }
 
-Matrix::Matrix(int numRows, int numCOls, bool isRandom) {
+Matrix::Matrix(int numRows, int numCols, bool isRandom) {
     this->numRows = numRows;
     this->numCols = numCols;
 

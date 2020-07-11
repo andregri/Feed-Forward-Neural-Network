@@ -5,19 +5,43 @@
 #include <streambuf>
 #include <ostream>
 #include <time.h>
+
 #include "../include/utils/Math.hpp"
 #include "../include/Matrix.hpp"
+#include "../include/NeuralNetwork.hpp"
 
 using namespace std;
 
 int main(int argc, char **argv) {
-    for(int i = 0; i < 10000; i++) {
-        Matrix *a = new Matrix(100, 100, true);
-        Matrix *b = new Matrix(100, 100, true);
+    vector<double> input;
+    input.push_back(0.2);
+    input.push_back(0.5);
+    input.push_back(0.1);
+    input.push_back(0.5);
+    input.push_back(0.1);
 
-        Matrix *c = new Matrix(a->getNumCols(), b->getNumRows(), false);
-        cout << "Multiply matrix at index " << i << "\n";
-        utils::Math::multiplyMatrix(a, b, c);
+    vector<double> target;
+    target.push_back(0.2);
+    target.push_back(0.5);
+    target.push_back(0.1);
+    target.push_back(0.1);
+
+    double learningRate = 0.05;
+    double momentum = 1;
+    double bias = 1;
+    vector<int> topology;
+    topology.push_back(input.size());
+    topology.push_back(5);
+    topology.push_back(5);
+    topology.push_back(target.size());
+
+    NeuralNetwork *nn = new NeuralNetwork(topology);
+
+    for(int i = 0; i < 10; i++) {
+        cout << "Training at index " << i << '\t';
+        nn->train(input, target, bias, learningRate, momentum);
+        double error = nn->getError();
+        cout << "Error: " << error << '\n';
     }
 
     return 0;
