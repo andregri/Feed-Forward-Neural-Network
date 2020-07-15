@@ -10,5 +10,5 @@ int main(int argc, char **argv)
 
     Neuron n(sigmoid);
 
-    std::cout << "Neuron1: " << n.getVal() << '\t' << n.getActivatedVal() << '\t' << n.getDerivedVal() << '\n';
+    std::cout << "Neuron1: " << n.get_val() << '\t' << n.get_activated_val() << '\t' << n.get_derived_val() << '\n';
 }

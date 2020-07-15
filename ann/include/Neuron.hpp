@@ -10,14 +10,14 @@ public:
 
     void setVal(double x);
 
-    double getVal();
-    double getActivatedVal();
-    double getDerivedVal();
+    double get_val();
+    double get_activated_val();
+    double get_derived_val();
 
 private:
     double val;
-    double activatedVal;
-    double derivedVal;
+    double activated_val;
+    double derived_val;
 
     ActivationFunction activation_fcn;
 };

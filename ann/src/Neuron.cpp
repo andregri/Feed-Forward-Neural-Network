@@ -10,21 +10,21 @@ Neuron::Neuron(ActivationFunction activation_fcn)
 void Neuron::setVal(double x)
 {
     val = x;
-    activatedVal = activation_fcn.f(val);
-    derivedVal = activation_fcn.df(val);
+    activated_val = activation_fcn.f(val);
+    derived_val = activation_fcn.df(val);
 }
 
-double Neuron::getVal()
+double Neuron::get_val()
 {
     return val;
 }
 
-double Neuron::getActivatedVal()
+double Neuron::get_activated_val()
 {
-    return activatedVal;
+    return activated_val;
 }
 
-double Neuron::getDerivedVal()
+double Neuron::get_derived_val()
 {
-    return derivedVal;
+    return derived_val;
 }
