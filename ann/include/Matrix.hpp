@@ -13,19 +13,24 @@
 class Matrix
 {
 public:
-    Matrix(int num_rows, int num_cols, bool random);
+    Matrix(int num_rows, int num_cols, bool random, double init=0);
     Matrix(const Matrix &m);
+    Matrix(std::vector<std::vector<double>> &);
 
-    Matrix operator*(const Matrix &m);
     const double& operator()(int row, int col) const; // get for const objects
     double& operator()(int row, int col);
 
     std::vector<int> shape() const;
 
+    Matrix operator*(const Matrix &m);
+
 private:
     int num_rows;
     int num_cols;
     std::vector<std::vector<double>> values;
+
+    void set_matrix(double x);
+    void set_random_matrix();
 };
 
 #endif
