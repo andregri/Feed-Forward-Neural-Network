@@ -83,3 +83,57 @@ TEST_F(MatrixTest, matrix_product)
         }
     }
 }
+
+TEST_F(MatrixTest, scalar_product)
+{
+
+    // row vector of ones 
+    Matrix row_vec(1, 6, false, 1);
+
+    // column vector of ones
+    Matrix col_vec(6, 1, false, 1);
+
+    Matrix res = row_vec * col_vec;
+    ASSERT_EQ(1, res.shape()[0]);
+    ASSERT_EQ(1, res.shape()[1]);
+    ASSERT_DOUBLE_EQ(6, res(0,0));
+}
+
+TEST_F(MatrixTest, matrix_sum)
+{
+    std::vector<std::vector<double>> a_init { {1, 2, 3}, {4, 5, 6} };
+    Matrix a(a_init);
+
+    std::vector<std::vector<double>> b_init { {1, 2, 3}, {4, 5, 6} };
+    Matrix b(b_init);
+
+    std::vector<std::vector<double>> res_init { {2, 4, 6}, {8, 10, 12} };
+    Matrix expected(res_init);
+    Matrix actual = a + b;
+
+
+    for(int r = 0; r < expected.shape()[0]; ++r) {
+        for(int c = 0; c < expected.shape()[1]; ++c) {
+            ASSERT_DOUBLE_EQ(expected(r, c), actual(r, c));
+        }
+    }
+}
+
+TEST_F(MatrixTest, matrix_transpose)
+{
+    // Transpose a matrix
+    // 1 2 3 --> 1 4
+    // 4 5 6     2 5
+    //           3 6
+
+    std::vector<std::vector<double>> a_init { {1, 2, 3}, {4, 5, 6} };
+    Matrix a(a_init);
+    Matrix b = a.transpose();
+
+    ASSERT_DOUBLE_EQ(1, b(0,0));
+    ASSERT_DOUBLE_EQ(2, b(1,0));
+    ASSERT_DOUBLE_EQ(3, b(2,0));
+    ASSERT_DOUBLE_EQ(4, b(0,1));
+    ASSERT_DOUBLE_EQ(5, b(1,1));
+    ASSERT_DOUBLE_EQ(6, b(2,1));
+}

@@ -21,8 +21,11 @@ public:
     double& operator()(int row, int col);
 
     std::vector<int> shape() const;
+    Matrix transpose();
+    Matrix apply(double(* fcn)(double x));
 
     Matrix operator*(const Matrix &m);
+    Matrix operator+(const Matrix &m);
 
 private:
     int num_rows;

@@ -56,7 +56,7 @@ Matrix::Matrix(std::vector<std::vector<double>> &x)
     num_cols = x[0].size();
 
     for(int r = 0; r < num_rows; ++r) {
-        if(x[r].size() != num_cols)
+        if(x.at(r).size() != num_cols)
             throw std::invalid_argument("Rows must have the same number of columns.");
         
         this->values.push_back(x[r]);
@@ -69,7 +69,7 @@ Matrix::Matrix(std::vector<std::vector<double>> &x)
 
 const double& Matrix::operator()(int r, int c) const
 {
-    return values[r][c];
+    return values.at(r).at(c);
 }
 
 /**
@@ -78,7 +78,7 @@ const double& Matrix::operator()(int r, int c) const
 
 double& Matrix::operator()(int r, int c)
 {
-    return values[r][c];
+    return values.at(r).at(c);
 }
 
 /**
@@ -119,6 +119,25 @@ Matrix Matrix::operator*(const Matrix& m2)
 }
 
 /**
+ * Sum between two matrices.
+ */
+
+Matrix Matrix::operator+(const Matrix& m)
+{
+    if(num_rows != m.shape()[0] || num_cols != m.shape()[1])
+        throw std::invalid_argument("To sum 2 matrices, they must have the same dimension.");
+
+    Matrix sum(m);
+    for(int r = 0; r < m.shape()[0]; ++r) {
+        for(int c = 0; c < m.shape()[1]; ++c) {
+            sum(r, c) = sum(r, c) + (*this)(r, c);
+        }
+    }
+
+    return sum;
+}
+
+/**
  * Set matrix elements with the same value.
  */
 
@@ -126,6 +145,40 @@ void Matrix::set_matrix(double x)
 {
     values = std::vector<std::vector<double>>(
         num_rows, std::vector<double>(num_cols, x));
+}
+
+/**
+ * Return the transposed matrix.
+ */
+
+Matrix Matrix::transpose()
+{
+    Matrix m(this->num_cols, this->num_rows, false, 0);
+
+    for(int r = 0; r < this->num_rows; ++r) {
+        for(int c = 0; c < this->num_cols; ++c) {
+            m(c, r) = (*this)(r, c);
+        }
+    }
+
+    return m;
+}
+
+/**
+ * Apply a function to each element of the matrix.
+ */
+
+Matrix Matrix::apply(double(* fcn)(double x))
+{
+    Matrix y(num_rows, num_cols, false, 0);
+
+    for(int r = 0; r < num_rows; ++r) {
+        for(int c = 0; c < num_cols; ++c) {
+            y(r, c) = fcn((*this)(r, c));
+        }
+    }
+
+    return y;
 }
 
 /**

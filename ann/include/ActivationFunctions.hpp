@@ -9,6 +9,18 @@ struct ActivationFunction
     double (*df)(double);
 };
 
+class Linear
+{
+public:
+    static double f(double x) {
+        return x;
+    }
+
+    static double df(double x) {
+        return 1;
+    }
+};
+
 class Sigmoid
 {
 public:
